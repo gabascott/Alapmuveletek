@@ -219,6 +219,11 @@ public class Muveletek extends javax.swing.JFrame {
         mnuFajlMentesMaskent.add(mnuFajlMent);
 
         mniFajlMentMaskent.setText("Mentés másként...");
+        mniFajlMentMaskent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniFajlMentMaskentActionPerformed(evt);
+            }
+        });
         mnuFajlMentesMaskent.add(mniFajlMentMaskent);
         mnuFajlMentesMaskent.add(jSeparator1);
 
@@ -311,6 +316,22 @@ public class Muveletek extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_mnuFajlMentActionPerformed
+
+    private void mniFajlMentMaskentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniFajlMentMaskentActionPerformed
+        JFileChooser fc = new JFileChooser(new File("."));
+        fc.setDialogTitle("Mentés másként");
+        
+        int valasztottGombErteke = fc.showSaveDialog(this);
+        if (valasztottGombErteke == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
+                lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fájl neve: " + f.getName() + "</html>");
+                try {
+                    Files.write(Paths.get(f.getPath(), "stat.txt"), "Statisztika:".getBytes());
+                } catch (IOException ex) {
+                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+    }//GEN-LAST:event_mniFajlMentMaskentActionPerformed
 
     /**
      * @param args the command line arguments
