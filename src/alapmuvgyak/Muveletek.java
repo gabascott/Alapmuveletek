@@ -18,6 +18,7 @@ public class Muveletek extends javax.swing.JFrame {
      */
     public Muveletek() {
         initComponents();
+        
     }
 
     /**
@@ -300,28 +301,39 @@ public class Muveletek extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMegoldasActionPerformed
 
     private void mnuFajlMentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFajlMentActionPerformed
-        JFileChooser fc = new JFileChooser();
-        fc.setDialogTitle("Fájl mentése");
-        fc.setCurrentDirectory(new File("."));
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        JFileChooser fc = new JFileChooser();
+//        fc.setDialogTitle("Fájl mentése");
+//        fc.setCurrentDirectory(new File("."));
+//        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//
+//        int valasztottGombErteke = fc.showSaveDialog(this);
+//        if (valasztottGombErteke == JFileChooser.APPROVE_OPTION) {
+//            File f = fc.getSelectedFile();
+//            if (f.isDirectory()) {
+//                lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
+//                try {
+//                    Files.write(Paths.get(f.getPath(), "stat.txt"), "Statisztika:".getBytes());
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
+        if (mentettFajl == null) {
+            mnuFajlMentesMaskentActionPerformed(evt);
+            
+        } else {
 
-        int valasztottGombErteke = fc.showSaveDialog(this);
-        if (valasztottGombErteke == JFileChooser.APPROVE_OPTION) {
-            File f = fc.getSelectedFile();
-            if (f.isDirectory()) {
-                lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Könyvtár: " + f.getName() + "</html>");
-                try {
-                    Files.write(Paths.get(f.getPath(), "stat.txt"), "Statisztika:".getBytes());
-                } catch (IOException ex) {
-                    Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try {
+                Files.write(Paths.get(mentettFajl), "Statisztika:".getBytes());
+            } catch (IOException ex) {
+                Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_mnuFajlMentActionPerformed
 
     /*tesztesetek
     
-    */
+     */
 
     private void mniFajlMentMaskentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniFajlMentMaskentActionPerformed
         JFileChooser fc = new JFileChooser(new File("."));
@@ -339,17 +351,20 @@ public class Muveletek extends javax.swing.JFrame {
         fc.setFileFilter(txtFilter);
 
         int valasztottGombErteke = fc.showSaveDialog(this);
+
         if (valasztottGombErteke == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
             String[] kit = ((FileNameExtensionFilter) fc.getFileFilter()).getExtensions();
             String fn = f.getPath();// + "." + kit[0];
-            
+
             /*kiterjesztés vizsgálata*/
             if (!fn.endsWith("." + kit[0])) {
                 fn += "." + kit[0];
             }
-            
+
             boolean mentes = true;
+            
+            
             Path path = Paths.get(fn);
             if (Files.exists(path)) {
                 valasztottGombErteke = JOptionPane.showConfirmDialog(this, "Felülírjam?", "A fájl már létezik!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -365,7 +380,7 @@ public class Muveletek extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "A mentés megszakítva", "Mentés SIKERTELEN", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_mniFajlMentMaskentActionPerformed
