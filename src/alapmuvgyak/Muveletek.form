@@ -6,7 +6,7 @@
     </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="mnuFajlMentesMaskent">
+        <Menu class="javax.swing.JMenu" name="mnuFajl">
           <Properties>
             <Property name="text" type="java.lang.String" value="F&#xe1;jl"/>
           </Properties>
@@ -27,12 +27,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuFajlMentActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="mniFajlMentMaskent">
+            <MenuItem class="javax.swing.JMenuItem" name="mnuFajlMentMaskent">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ment&#xe9;s m&#xe1;sk&#xe9;nt..."/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniFajlMentMaskentActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuFajlMentMaskentActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
