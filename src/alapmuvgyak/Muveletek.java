@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -487,7 +488,29 @@ public class Muveletek extends javax.swing.JFrame {
 
     private String tartalomOsszeallitasa() {
         String statisztika = "Alapműveletek gyakoroltatása statisztika";
-
+        
+//        statisztika += lblOsszKerdes.getText() + "\t";
+//        statisztika += lblOsszeadProba.getText() + "\t";
+//        statisztika += lblOsszeadKerdes.getText() + "\t";
+//        statisztika += lblOsszeadProba.getText() + "\t";
+        
+        JLabel[] lblTomb = new JLabel[]{lblOsszKerdes, lblOsszeadProba, lblOsszeadKerdes, lblOsszeadProba, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
+        
+        
+        final int HE = 3;
+        int OSSZ_KERDES_HOSSZ = lblTomb[0].getText().length();
+        int OSSZ_PROBA_HOSSZ = lblTomb[1].getText().length();
+        
+       
+        for (int i = 0; i < lblTomb.length-1; i+=2) {
+            String format = "%" + (OSSZ_KERDES_HOSSZ + HE) + "%s" + (OSSZ_PROBA_HOSSZ + HE + "s\n");
+            statisztika += String.format(format, lblTomb[i].getText(), lblTomb[i + 1].getText());
+//            JLabel lbl = lblTomb[i];
+//            statisztika += lbl.getText() + "\t";
+//            lbl = lblTomb[i + 1];
+//            statisztika += lbl.getText() + "\n";
+        }
+        
         return statisztika;
     }
 }
