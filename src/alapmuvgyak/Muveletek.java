@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,11 +17,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Muveletek extends javax.swing.JFrame {
     String mentettFajl = null;
     /*kérdések*/
-    int osszKerdesSzama = 0;
+    int osszKerdesSzama = 0, osszProbaSzama = 0;
     int osztasKerdesekSzama = 0, osztasProbakSzama = 0;
     int szorzasKerdesekSzama = 0, szorzasProbakSzama = 0;
     /*próbálkozások*/
-    int osszProbaSzama = 0;
+//    int osszProbaSzama = 0;
     
     /**
      * Creates new form Muveletek
@@ -50,7 +51,7 @@ public class Muveletek extends javax.swing.JFrame {
         btnMegoldas = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblOsszKerdes = new javax.swing.JLabel();
-        lbllblOsszProba = new javax.swing.JLabel();
+        lblOsszProba = new javax.swing.JLabel();
         lblEredmeny = new javax.swing.JLabel();
         lblOsszeadKerdes = new javax.swing.JLabel();
         lblKivonasKerdes = new javax.swing.JLabel();
@@ -133,8 +134,8 @@ public class Muveletek extends javax.swing.JFrame {
         lblOsszKerdes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblOsszKerdes.setText("Össz kérdések száma:    0");
 
-        lbllblOsszProba.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbllblOsszProba.setText("Össz Probálkozások száma:    0");
+        lblOsszProba.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblOsszProba.setText("Össz Probálkozások száma:    0");
 
         lblEredmeny.setText("Eredmény: 0 %");
 
@@ -186,7 +187,7 @@ public class Muveletek extends javax.swing.JFrame {
                             .addComponent(lblSzorzasProba, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblOsszeadProba, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblOsztasProba, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbllblOsszProba, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(lblOsszProba, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
 
@@ -198,7 +199,7 @@ public class Muveletek extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOsszKerdes)
-                    .addComponent(lbllblOsszProba))
+                    .addComponent(lblOsszProba))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -387,7 +388,23 @@ public class Muveletek extends javax.swing.JFrame {
             File f = fc.getSelectedFile();
             String fn = f.getPath();// + "." + kit[0];
             lblEredmeny.setText("<html>Elérés: " + f.getPath() + "<br>Fájl neve: " + f.getName() + "</html>");
+            
+            /*Tényleges megnyitás*/
+            Path path = Paths.get(fn);
+            try {
+                
+//                byte[] bajtTomb = Files.readAllBytes(path);
+                
+                List <String> stringLista = Files.readAllLines(path);
+                String egySor = stringLista.get(1);
+                String[] adatok = egySor.split(":");
+//                "".trim();
 
+                int temp = 67;
+            } catch (IOException ex) {
+                Logger.getLogger(Muveletek.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         } else {
             JOptionPane.showMessageDialog(this, "Megnyitás megszakítva", "MEGNYITÁS SIKERTELEN", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -432,7 +449,7 @@ public class Muveletek extends javax.swing.JFrame {
             try {
                 /*Tényleges kiírás*/
                 if (mentes) {
-                    Files.write(Paths.get(fn), tartalomOsszeallitasa().getBytes());
+                    Files.write(path, tartalomOsszeallitasa().getBytes());
                 }
                 /*Tényleges kiírás VÉGE*/
             } catch (IOException ex) {
@@ -520,6 +537,7 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JLabel lblKivonasKerdes;
     private javax.swing.JLabel lblKivonasProba;
     private javax.swing.JLabel lblOsszKerdes;
+    private javax.swing.JLabel lblOsszProba;
     private javax.swing.JLabel lblOsszeadKerdes;
     private javax.swing.JLabel lblOsszeadProba;
     private javax.swing.JLabel lblOsztasKerdes;
@@ -527,7 +545,6 @@ public class Muveletek extends javax.swing.JFrame {
     private javax.swing.JLabel lblSzorzasKerdes;
     private javax.swing.JLabel lblSzorzasProba;
     private javax.swing.JLabel lblValasz;
-    private javax.swing.JLabel lbllblOsszProba;
     private javax.swing.JMenu mnuFajl;
     private javax.swing.JMenuItem mnuFajlKilep;
     private javax.swing.JMenuItem mnuFajlMegnyit;
@@ -550,7 +567,7 @@ public class Muveletek extends javax.swing.JFrame {
 //        statisztika += lblOsszeadKerdes.getText() + "\t";
 //        statisztika += lblOsszeadProba.getText() + "\t";
         
-        JLabel[] lblTomb = new JLabel[]{lblOsszKerdes, lblOsszeadProba, lblOsszeadKerdes, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
+        JLabel[] lblTomb = new JLabel[]{lblOsszKerdes, lblOsszProba, lblOsszeadProba, lblOsszeadKerdes, lblKivonasKerdes, lblKivonasProba, lblOsztasKerdes, lblOsztasProba, lblSzorzasKerdes, lblSzorzasProba};
         
         
         final int HE = 3;
